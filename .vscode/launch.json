@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-OxefoodApiGabrielApplication<oxefood-api-gabriel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.com.ifpe.oxefood.OxefoodApiGabrielApplication",
+            "projectName": "oxefood-api-gabriel",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
