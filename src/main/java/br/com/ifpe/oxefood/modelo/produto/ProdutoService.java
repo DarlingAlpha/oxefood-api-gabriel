@@ -1,6 +1,7 @@
 package br.com.ifpe.oxefood.modelo.produto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -20,6 +21,14 @@ public class ProdutoService {
        produto.setDataCriacao(LocalDate.now());
        return repository.save(produto);
    }
+public List<Produto> findAll() {
+  
+    return repository.findAll();
+}
 
+public Produto findById(Long id) {
+
+    return repository.findById(id).get();
+}
 }
 
