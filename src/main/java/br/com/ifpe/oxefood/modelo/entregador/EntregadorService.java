@@ -11,23 +11,41 @@ import org.springframework.stereotype.Service;
 @Service
 public class EntregadorService {
     @Autowired
-   private EntregadorRepository repository;
+    private EntregadorRepository repository;
 
-   @Transactional
-   public Entregador save(Entregador entregador) {
+    @Transactional
+    public Entregador save(Entregador entregador) {
 
-       entregador.setHabilitado(Boolean.TRUE);
-       entregador.setVersao(1L);
-       entregador.setDataCriacao(LocalDate.now());
-       return repository.save(entregador);
-   }
- public List<Entregador> findAll() {
-  
-    return repository.findAll();
-}
+        entregador.setHabilitado(Boolean.TRUE);
+        entregador.setVersao(1L);
+        entregador.setDataCriacao(LocalDate.now());
+        return repository.save(entregador);
+    }
 
-public Entregador findById(Long id) {
+    public List<Entregador> findAll() {
 
-    return repository.findById(id).get();
-}
+        return repository.findAll();
+    }
+
+    public Entregador findById(Long id) {
+
+        return repository.findById(id).get();
+    }
+
+    /* Transactional para alteração do banco */
+    @Transactional
+    public void update(Long id, Entregador entregadorAlterado) {
+
+        Entregador entregador = repository.findById(id).get();
+        entregador.setNome(entregadorAlterado.getNome());
+        entregador.setDataNascimento(entregadorAlterado.getDataNascimento());
+        entregador.setCpf(entregadorAlterado.getCpf());
+        entregador.setFoneCelular(entregadorAlterado.getFoneCelular());
+        entregador.setFoneFixo(entregadorAlterado.getFoneFixo());
+        entregador.setRg(entregadorAlterado.getRg());
+        entregador.setQtdEntregasRealizadas(entregadorAlterado.getQtdEntregasRealizadas());
+        /* altera a verção começa de um e vai em diante */
+        entregador.setVersao(entregador.getVersao() + 1);
+        repository.save(entregador);
+    }
 }
