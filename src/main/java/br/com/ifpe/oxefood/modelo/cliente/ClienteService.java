@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteService {
+
     @Autowired
     private ClienteRepository repository;
    
@@ -31,6 +32,7 @@ public class ClienteService {
 
         return repository.findById(id).get();
     }
+
      /* Transactional para alteração do banco*/
     @Transactional
     public void update(Long id, Cliente clienteAlterado) {
@@ -45,4 +47,15 @@ public class ClienteService {
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);
     }
+
+    @Transactional
+   public void delete(Long id) {
+
+       Cliente cliente = repository.findById(id).get();
+       cliente.setHabilitado(Boolean.FALSE);
+       cliente.setVersao(cliente.getVersao() + 1);
+
+       repository.save(cliente);
+    }
+    
 }
