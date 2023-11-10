@@ -1,4 +1,4 @@
-package br.com.ifpe.oxefood.api.entregador;
+package br.com.ifpe.oxefood.api.categoriaProduro;
 
 import java.util.List;
 
@@ -15,38 +15,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.oxefood.modelo.entregador.Entregador;
-import br.com.ifpe.oxefood.modelo.entregador.EntregadorService;
+import br.com.ifpe.oxefood.modelo.cliente.Cliente;
+import br.com.ifpe.oxefood.modelo.produto.CategoriaProduto;
+import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/api/entregador")
+@RequestMapping("/api/CategoriaProduto")
 @CrossOrigin
-public class EntregadorController {
+public class CategoriaProdutoController {
 
     @Autowired
-    private EntregadorService entregadorService;
+    private CategoriaProdutoService categoriaProdutoService;
 
-    @ApiOperation(value = "Serviço responsável por salvar um entregador no sistema.")
+    @ApiOperation(value = "Serviço responsável por salvar um cliente no sistema.")
     @PostMapping
-    public ResponseEntity<Entregador> save(@RequestBody EntregadorRequest request) {
+    public ResponseEntity<CategoriaProduto> save(@RequestBody CategoriaProdutoRequest request) {
 
-        Entregador entregador = entregadorService.save(request.build());
-        return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);
+        CategoriaProduto categoriaProduto = categoriaProdutoService.save(request.build());
+        return new ResponseEntity<CategoriaProduto>(categoriaProduto, HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Serviço responsável por Listar um entregador no sistema.")
+    // Consultar
+    @ApiOperation(value = "Serviço responsável por listar um cliente no sistema.")
     @GetMapping
-    public List<Entregador> findAll() {
+    public List<CategoriaProduto> findAll() {
 
-        return entregadorService.findAll();
+        return categoriaProdutoService.findAll();
     }
 
-    @ApiOperation(value = "Serviço responsável por obter um entregador referente ao Id passado na URL.")
+    @ApiOperation(value = "Serviço responsável por obter um cliente referente ao Id passado na URL.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna  o entregador."),
+            @ApiResponse(code = 200, message = "Retorna  o cliente."),
             @ApiResponse(code = 401, message = "Acesso não autorizado."),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
             @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
@@ -54,25 +56,24 @@ public class EntregadorController {
     })
 
     @GetMapping("/{id}")
-    public Entregador findById(@PathVariable Long id) {
+    public CategoriaProduto findById(@PathVariable Long id) {
 
-        return entregadorService.findById(id);
+        return categoriaProdutoService.findById(id);
     }
 
     // Alterar
     @PutMapping("/{id}")
-    public ResponseEntity<Entregador> update(@PathVariable("id") Long id, @RequestBody EntregadorRequest request) {
+    public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody CategoriaProdutoRequest request) {
 
-        entregadorService.update(id, request.build());
+        categoriaProdutoService.update(id, request.build());
         return ResponseEntity.ok().build();
+
     }
 
-    // Desabilitar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
-        entregadorService.delete(id);
+        categoriaProdutoService.delete(id);
         return ResponseEntity.ok().build();
-
     }
 }
