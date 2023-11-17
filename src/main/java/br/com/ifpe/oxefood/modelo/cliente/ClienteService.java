@@ -8,19 +8,28 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.oxefood.modelo.mensagens.EmailService;
+
 @Service
 public class ClienteService {
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private ClienteRepository repository;
-   
+
     @Transactional
     public Cliente save(Cliente cliente) {
 
         cliente.setHabilitado(Boolean.TRUE);
         cliente.setVersao(1L);
         cliente.setDataCriacao(LocalDate.now());
+        Cliente clienteSalvo = repository.save(cliente);
+
+        emailService.enviarEmailConfirmacaoCadastroCliente(clienteSalvo);
+
         return repository.save(cliente);
+
     }
 
     public List<Cliente> findAll() {
@@ -33,7 +42,7 @@ public class ClienteService {
         return repository.findById(id).get();
     }
 
-     /* Transactional para alteração do banco*/
+    /* Transactional para alteração do banco */
     @Transactional
     public void update(Long id, Cliente clienteAlterado) {
 
@@ -49,13 +58,13 @@ public class ClienteService {
     }
 
     @Transactional
-   public void delete(Long id) {
+    public void delete(Long id) {
 
-       Cliente cliente = repository.findById(id).get();
-       cliente.setHabilitado(Boolean.FALSE);
-       cliente.setVersao(cliente.getVersao() + 1);
+        Cliente cliente = repository.findById(id).get();
+        cliente.setHabilitado(Boolean.FALSE);
+        cliente.setVersao(cliente.getVersao() + 1);
 
-       repository.save(cliente);
+        repository.save(cliente);
     }
-    
+
 }
