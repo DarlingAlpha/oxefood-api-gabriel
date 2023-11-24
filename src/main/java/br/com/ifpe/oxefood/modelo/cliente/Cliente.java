@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Table(name = "Cliente")
 @Where(clause = "habilitado = true")
@@ -24,18 +23,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente extends EntidadeAuditavel  {
+public class Cliente extends EntidadeAuditavel {
 
    @Column
    private String email;
 
-   @Column
+   @Column(nullable = false, length = 100)
    private String nome;
 
    @Column
    private LocalDate dataNascimento;
 
-   @Column
+   @Column(unique = true)
    private String cpf;
 
    @Column

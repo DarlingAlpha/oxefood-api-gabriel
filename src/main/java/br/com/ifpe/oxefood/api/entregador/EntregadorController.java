@@ -2,6 +2,8 @@ package br.com.ifpe.oxefood.api.entregador;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +33,7 @@ public class EntregadorController {
 
     @ApiOperation(value = "Serviço responsável por salvar um entregador no sistema.")
     @PostMapping
-    public ResponseEntity<Entregador> save(@RequestBody EntregadorRequest request) {
+    public ResponseEntity<Entregador> save(@RequestBody @Valid EntregadorRequest request) {
 
         Entregador entregador = entregadorService.save(request.build());
         return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);

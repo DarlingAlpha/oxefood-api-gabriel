@@ -1,5 +1,10 @@
 package br.com.ifpe.oxefood.api.produto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +21,9 @@ public class ProdutoRequest {
 
     private String codigo;
 
+    @NotNull(message = "O Titulo é de preenchimento obrigatório")
+    @NotBlank(message = "O Titulo é de preenchimento obrigatório")
+    @Length(max = 150, message = "O Titulo deverá ter no máximo {max} caracteres")
     private String titulo;
 
     private String descricao;

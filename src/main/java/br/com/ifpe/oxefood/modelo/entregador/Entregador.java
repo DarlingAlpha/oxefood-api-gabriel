@@ -1,4 +1,5 @@
 package br.com.ifpe.oxefood.modelo.entregador;
+
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -14,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Table(name = "Entregador")
 @Where(clause = "habilitado = true")
@@ -23,15 +23,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Entregador extends EntidadeAuditavel  {
+public class Entregador extends EntidadeAuditavel {
 
-   @Column
+   @Column(nullable = false, length = 100)
    private String nome;
 
-   @Column
+   @Column(unique = true)
    private String cpf;
 
-   @Column
+   @Column(unique = true)
    private String rg;
 
    @Column
@@ -43,8 +43,7 @@ public class Entregador extends EntidadeAuditavel  {
    @Column
    private String foneFixo;
 
-   @Column         
+   @Column
    private Integer qtdEntregasRealizadas;
-   
-}
 
+}

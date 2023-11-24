@@ -2,6 +2,8 @@ package br.com.ifpe.oxefood.api.cliente;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +33,7 @@ public class ClienteController {
 
     @ApiOperation(value = "Serviço responsável por salvar um cliente no sistema.")
     @PostMapping
-    public ResponseEntity<Cliente> save(@RequestBody ClienteRequest request) {
+    public ResponseEntity<Cliente> save(@RequestBody @Valid ClienteRequest request) {
 
         Cliente cliente = clienteService.save(request.build());
         return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);

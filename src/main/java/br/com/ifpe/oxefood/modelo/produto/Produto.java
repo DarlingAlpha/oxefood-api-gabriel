@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Table(name = "Produto")
 @Where(clause = "habilitado = true")
@@ -23,7 +22,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto extends EntidadeAuditavel  {
+public class Produto extends EntidadeAuditavel {
 
    @ManyToOne
    private CategoriaProduto categoria;
