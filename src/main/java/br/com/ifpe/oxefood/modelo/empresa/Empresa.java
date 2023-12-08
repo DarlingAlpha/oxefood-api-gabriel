@@ -1,6 +1,4 @@
-package br.com.ifpe.oxefood.modelo.cliente;
-
-import java.time.LocalDate;
+package br.com.ifpe.oxefood.modelo.empresa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,34 +17,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Cliente")
+@Table(name = "Empresa")
 @Where(clause = "habilitado = true")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente extends EntidadeAuditavel {
 
-   @ManyToOne
-   @JoinColumn(nullable = false)
-   private Usuario usuario;
+public class Empresa extends EntidadeAuditavel {
 
-   @Column
-   private String email;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Usuario usuario;
 
-   private String nome;
+    @Column
+    private String chave;
 
-   @Column
-   private LocalDate dataNascimento;
+    @Column
+    private String site;
 
-   @Column(unique = true)
-   private String cpf;
+    @Column
+    private String cnpj;
 
-   @Column
-   private String foneCelular;
+    @Column
+    private String inscricaoEstadual;
 
-   @Column
-   private String foneFixo;
+    @Column
+    private String nomeEmpresarial;
 
+    @Column
+    private String nomeFantasia;
+
+    @Column
+    private String fone;
+
+    @Column
+    private String foneAlternativo;
 }

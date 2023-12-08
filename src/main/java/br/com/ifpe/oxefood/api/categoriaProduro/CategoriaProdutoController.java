@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/api/CategoriaProduto")
+@RequestMapping("/api/categoriaProduto")
 @CrossOrigin
 public class CategoriaProdutoController {
 
