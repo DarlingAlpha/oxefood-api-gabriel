@@ -40,16 +40,20 @@ public class ProdutoController {
     @PostMapping
     public ResponseEntity<Produto> save(@RequestBody @Valid ProdutoRequest request) {
 
+// Cria um novo produto a partir do ProdutoRequest e o salva no serviço de produto
         Produto produtoNovo = produtoService.save(request.build());
+          // Obtém a categoria do produto a partir do serviço de categoria
         produtoNovo.setCategoria(categoriaProdutoService.findById(request.getIdCategoria()));
+          // Salva novamente o produto, agora com a categoria associada
         Produto produto = produtoService.save(produtoNovo);
+         // Retorna uma resposta indicando sucesso (código 201 - Created) e o produto salvo
         return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Serviço responsável por listar um produto no sistema.")
     @GetMapping
     public List<Produto> findAll() {
-
+    // Obtém e retorna todos os produtos do serviço de produto
         return produtoService.findAll();
     }
 
@@ -63,26 +67,30 @@ public class ProdutoController {
     })
     @GetMapping("/{id}")
     public Produto findById(@PathVariable Long id) {
-
+// Obtém e retorna o produto com o ID fornecido do serviço de produto
         return produtoService.findById(id);
     }
 
     // Alterar
     @PutMapping("/{id}")
     public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
-
+  // Cria um objeto Produto a partir do ProdutoRequest
         Produto produto = request.build();
+        // Associa a categoria ao produto
         produto.setCategoria(categoriaProdutoService.findById(request.getIdCategoria()));
-        produtoService.update(id, produto);
+                  // Atualiza o produto com o ID fornecido
 
+        produtoService.update(id, produto);
+// Retorna uma resposta indicando sucesso (código 200 - OK)
         return ResponseEntity.ok().build();
     }
 
     // Desabilitar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-
+// Deleta o produto com o ID fornecido
         produtoService.delete(id);
+         // Retorna uma resposta indicando sucesso (código 200 - OK)
         return ResponseEntity.ok().build();
 
     }
@@ -92,7 +100,7 @@ public class ProdutoController {
             @RequestParam(value = "codigo", required = false) String codigo,
             @RequestParam(value = "titulo", required = false) String titulo,
             @RequestParam(value = "idCategoria", required = false) Long idCategoria) {
-
+ // Filtra os produtos com base nos parâmetros fornecidos e retorna a lista resultante
         return produtoService.filtrar(codigo, titulo, idCategoria);
     }
 

@@ -28,13 +28,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Cliente extends EntidadeAuditavel {
 
+ // Relacionamento muitos-para-um com a entidade Usuario
    @ManyToOne
    @JoinColumn(nullable = false)
    private Usuario usuario;
 
    @Column
-   private String email;
+   private String email; 
 
+   @Column
    private String nome;
 
    @Column

@@ -9,7 +9,6 @@ import javax.persistence.Version;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;

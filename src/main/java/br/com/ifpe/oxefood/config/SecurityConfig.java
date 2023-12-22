@@ -64,29 +64,34 @@ public class SecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPoint).and().authorizeRequests()
 
                 .antMatchers(AUTH_WHITELIST).permitAll()
-
+    // Permite o acesso ao cadastro de cliente
                 .antMatchers(HttpMethod.POST, "/api/cliente").permitAll()
+                    // Permite o acesso ao  cadastro de produto
                 // liberar metodo por id de produto
-                // .antMatchers(HttpMethod.POST, "/api/produto/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/produto/*").permitAll()
+                
+    // Permite o acesso de login
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
 
-                // // Configuração de autorizações de acesso para Produto
-                // .antMatchers(HttpMethod.POST, "/api/produto")
-                // .hasAnyAuthority(Usuario.ROLE_EMPRESA, Usuario.ROLE_EMPRESA_USER) // Cadastro
-                // de produto
-                // .antMatchers(HttpMethod.PUT, "/api/produto/*")
-                // .hasAnyAuthority(Usuario.ROLE_EMPRESA, Usuario.ROLE_EMPRESA_USER) //
+ // Configura autorizações específicas para diferentes operações em produtos
+                // Configuração de autorizações de acesso para Produto
+                .antMatchers(HttpMethod.POST, "/api/produto")
+                .hasAnyAuthority(Usuario.ROLE_EMPRESA, Usuario.ROLE_EMPRESA_USER) // Cadastro
+             
+                .antMatchers(HttpMethod.PUT, "/api/produto/*")
+                .hasAnyAuthority(Usuario.ROLE_EMPRESA, Usuario.ROLE_EMPRESA_USER) //
                 // Alteração de produto
-                // .antMatchers(HttpMethod.DELETE,
-                // "/api/produto/*").hasAnyAuthority(Usuario.ROLE_EMPRESA) // Exclusão de
-                // // produto
-                // .antMatchers(HttpMethod.GET, "/api/produto/")
-                // .hasAnyAuthority(Usuario.ROLE_CLIENTE, Usuario.ROLE_EMPRESA,
-                // Usuario.ROLE_EMPRESA_USER) // Consulta de
-                // // produto
-
+                .antMatchers(HttpMethod.DELETE,
+                "/api/produto/*").hasAnyAuthority(Usuario.ROLE_EMPRESA) // Exclusão de
+                // produto
+                .antMatchers(HttpMethod.GET, "/api/produto/")
+                .hasAnyAuthority(Usuario.ROLE_CLIENTE, Usuario.ROLE_EMPRESA,
+                Usuario.ROLE_EMPRESA_USER) // Consulta de
+                // produto
+// Configura uma regra padrão para todas as outras requisições
                 .anyRequest()
                 .hasAnyAuthority(Usuario.ROLE_CLIENTE, Usuario.ROLE_EMPRESA, Usuario.ROLE_CLIENTE)
+                   // Adiciona um filtro de autenticação baseado em token JWT
                 .and().addFilterBefore(
                         new JwtTokenAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);

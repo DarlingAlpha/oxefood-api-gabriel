@@ -36,11 +36,14 @@ public class EmpresaController {
     public ResponseEntity<Empresa> save(@RequestBody @Valid EmpresaRequest request) {
 
         Empresa empresa = request.buildEmpresa();
-
+// Verifica se o perfil não é nulo e não é uma string vazia
         if (request.getPerfil() != null && !"".equals(request.getPerfil())) {
+             // Verifica o valor do perfil
             if (request.getPerfil().equals("Usuario")) {
+                 // Se o perfil for "Usuario", adiciona o papel ROLE_EMPRESA_USER ao usuário associado à empresa
                 empresa.getUsuario().getRoles().add(Usuario.ROLE_EMPRESA_USER);
             } else if (request.getPerfil().equals("Admin")) {
+                 // Se o perfil for "Admin", adiciona o papel ROLE_EMPRESA ao usuário associado à empresa
                 empresa.getUsuario().getRoles().add(Usuario.ROLE_EMPRESA);
             }
         }
